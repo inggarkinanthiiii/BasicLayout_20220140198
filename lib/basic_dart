@@ -1,0 +1,94 @@
+class Produk {
+  String nama;
+  int harga;
+  int stock;
+  String? kategori;
+
+  Produk(this.nama, this.harga, this.stock, {this.kategori});
+}
+
+void tampilkanProduk({required Produk produk}) {
+  String statusStok = (produk.stock > 0) ? "Tersedia" : "Habis";
+
+  print("Nama : ${produk.nama}");
+  print("Harga : Rp${produk.harga}");
+  print("Stok : ${produk.stock}");
+  print("Kategori : ${produk.kategori ?? "Tidak ada kategori"}\n");
+}
+
+void tampilkanDaftarProduk(List<Produk> daftarProduk) {
+  print("\nDaftar Produk:");
+  for (var produk in daftarProduk) {
+    tampilkanProduk(produk: produk);
+  }
+}
+
+void cekStok(Produk produk) {
+  String status = (produk.stock > 10)
+      ? "Stok masih banyak"
+      : (produk.stock > 0)
+          ? "Stok terbatas"
+          : "Produk habis";
+
+  print("$status\n");
+}
+
+void tampilkanHargaProduk(Map<String, double> hargaProduk) {
+  print("\nHarga Produk:");
+  hargaProduk.forEach((nama, harga) {
+    print("$nama - Rp$harga");
+  });
+}
+
+void main() {
+  late String namaPelanggan;
+  namaPelanggan = "Arya";
+
+  print("Halo, $namaPelanggan! Selamat datang di toko online kami.\n");
+
+  List<Produk> daftarProduk = [
+  Produk("Laptop", 1500000, 5, kategori: "Elektronik"),
+  Produk("Smartphone", 800000, 15, kategori: "Elektronik"),
+  Produk("Kamera", 500000, 0, kategori: "Fotografi"),
+  Produk("Meja", 100000, 3, kategori: "Furniture"),
+];
+
+  tampilkanDaftarProduk(daftarProduk);
+
+  Map<String, double> hargaProduk = {
+    "Laptop": 1500000,
+    "Smartphone": 800000,
+    "Kamera": 500000,
+    "Meja": 100000,
+  };
+
+  tampilkanHargaProduk(hargaProduk);
+
+  cekStok(daftarProduk[0]);
+
+  int jumlahBeli = 2;
+  double totalHarga = hitungTotal(daftarProduk[0].harga, jumlahBeli);
+  print("Total harga untuk $jumlahbeli ${daftarProduk[0].nama"}: Rp$totalHarga\n");
+
+  String kategoriPilihan = daftarProduk[3].kategori ?? "Tidak ada";
+  print("Kategori produk: $kategoriPilihan"};
+
+  switch (kategoriPilihan) {
+    case "Elektronik":
+      print("Produk dalam kategori Elektronik.");
+      break;
+    case "Fotografi":
+      print("Produk dalam kategori Fotografi.");
+      break;
+    case "Furniture":
+      print("Produk dalam kategori Furniture.");
+      break;
+    default:
+      print("Kategori tidak dikenali.");
+  }
+}
+
+double hitungTotal(int harga, int jumlah) {
+  return harga * jumlah.toDouble();
+}
+
